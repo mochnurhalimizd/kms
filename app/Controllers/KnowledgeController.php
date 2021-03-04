@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\KnowledgeModel;
+use App\Models\DocumentModel;
 use CodeIgniter\Controller;
 
 /**
@@ -24,9 +25,8 @@ use CodeIgniter\Controller;
      */
     public function index() {
         $model = New KnowledgeModel();
-        $data['knowledges'] = $model->orderBy('id', 'DESC')
-        ->join('')
-        ->findAll();
+        
+        $data['knowledges'] = $model->getKnowladges();
         return view('knowledges/knowledge_view', $data);
     }
 
@@ -54,13 +54,25 @@ use CodeIgniter\Controller;
      */
     public function save() {
         $model = new KnowledgeModel();
+        $docModel = new DocumentModel();
+        $doc = $this->request->getFile('document');
+        $doc->move(WRITEPATH . 'uploads');
         $data = [
             'title' => $this->request->getVar('title'),
             'description'  => $this->request->getVar('desc'),
             'category_id'  => $this->request->getVar('category_id'),
             'user_id' => 2
         ];
-        $model->insert($data);
+        if($model->insert($data)) {
+            $documents = [
+                'knowladge_id' => $model->getInsertID(),
+                'path' => 'uploads/' .  $doc->getName(),
+                'title' => $this->request->getVar('title'),
+                'desc' => ''
+            ]; 
+
+            $docModel->insert($documents);
+        }
         return $this->response->redirect(site_url('/knowledges'));
     }
  }

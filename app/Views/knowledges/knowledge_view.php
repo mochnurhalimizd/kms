@@ -114,18 +114,20 @@
                   <tr>
                     <th>Title</th>
                     <th>Desc</th>
-                    <th>Users</th>
+                    <th>Category</th>
+                    <th>Author</th>
                     <th>Category</th>
                   </tr>
                   </thead>
                   <tbody>
                      <?php if($knowledges): ?>
-                         <?php foreach($knowledges as $knowledge): ?>
+                         <?php foreach($knowledges->getResult() as $knowledge): ?>
                          <tr>
-                            <td><?php echo $knowledge['title']; ?></td>
-                            <td><?php echo $knowledge['description']; ?></td>
-                            <td><?php echo $knowledge['description']; ?></td>
-                            <td><?php echo $knowledge['created_at']; ?></td>
+                            <td><?php echo $knowledge->title; ?></td>
+                            <td><?php echo $knowledge->description; ?></td>
+                            <td><?php echo $knowledge->category; ?></td>
+                            <td><?php echo $knowledge->author; ?></td>
+                            <td><?php echo $knowledge->created_at; ?></td>
                          </tr>
                         <?php endforeach; ?>
                      <?php endif; ?>

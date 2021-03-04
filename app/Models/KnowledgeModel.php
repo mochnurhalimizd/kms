@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
-use phpDocumentor\Reflection\Types\This;
 
 /**
  * User model file
@@ -44,4 +43,24 @@ use phpDocumentor\Reflection\Types\This;
     public function getCategories() {
         return $this->db->query("SELECT * FROM categories")->getResult();
     }
+
+    /**
+     * Get knowladge
+     */
+    public function getKnowladges() {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('knowladges');
+        $builder->select(
+            "knowladges.title,"
+            ."knowladges.description,"
+            ."knowladges.created_at,"
+            ."knowladges.deleted_at,"
+            ."categories.title AS 'category',"
+            ."users.fullname AS 'author',"
+        );
+        $builder->join('categories', 'categories.id = knowladges.category_id', 'inner');
+        $builder->join('users', 'users.id = knowladges.user_id', 'inner');
+        return $builder->get();
+    }
+
  }

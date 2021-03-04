@@ -104,7 +104,7 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form id="quickForm" method="post" action="<?= site_url('/knowledges/save') ?>">
+              <form id="quickForm" method="post" action="<?= site_url('/knowledges/save') ?> " enctype="multipart/form-data">
                 <div class="card-body">
                   <div class="form-group">
                     <label for="exampleInputEmail1">Title</label>
@@ -127,6 +127,17 @@
                           <?php endforeach; ?>
                       <?php endif; ?>
                     </select>
+                  </div>
+
+                  <div class="input-group">
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="exampleInputFile" name="document">
+                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                      </div>
+                      <div class="input-group-append">
+                        <span class="input-group-text">Upload</span>
+                      </div>
+                    </div>
                   </div>
                 
                 </div>
@@ -173,6 +184,7 @@
 <!-- jquery-validation -->
 <script src="../../plugins/jquery-validation/jquery.validate.min.js"></script>
 <script src="../../plugins/jquery-validation/additional-methods.min.js"></script>
+<script src="../../plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 <!-- AdminLTE App -->
 <script src="../../dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
